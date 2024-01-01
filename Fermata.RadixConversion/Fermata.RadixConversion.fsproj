@@ -9,4 +9,8 @@
     <Compile Include="Fermata.RadixConversion.fs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Fermata" Version="0.7.0" />
+  </ItemGroup>
+
 </Project>
