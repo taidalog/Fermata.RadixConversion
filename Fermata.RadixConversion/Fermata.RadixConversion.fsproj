@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>Fermata.RadixConversion</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>taidalog</Authors>
+    <Company />
+    <Description>F# library for operations related to radix conversion. Compatible with Fable.</Description>
+    <PackageProjectUrl>https://github.com/taidalog/Fermata.RadixConversion</PackageProjectUrl>
+    <PackageTags>F#; FSharp; fable; radix; conversion; helper; library; functional; programming</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright (c) 2024 taidalog</Copyright>
+    <RepositoryUrl>https://github.com/taidalog/Fermata.RadixConversion.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Fermata.RadixConversion.fsi" />
+    <Compile Include="Fermata.RadixConversion.fs" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fermata" Version="0.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="*.fsproj; *.fs; *.fsi; *.js" PackagePath="fable\" />
+  </ItemGroup>
+
+</Project>

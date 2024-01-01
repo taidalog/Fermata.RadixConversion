@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fermata.RadixConversion", "Fermata.RadixConversion\Fermata.RadixConversion.fsproj", "{DD942869-1FB0-4CDB-818E-FB8B4EE6149F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fermata.RadixConversion.Tests", "Fermata.RadixConversion.Tests\Fermata.RadixConversion.Tests.fsproj", "{201D3C17-A8C7-42E5-A47B-CC56545AD167}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD942869-1FB0-4CDB-818E-FB8B4EE6149F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD942869-1FB0-4CDB-818E-FB8B4EE6149F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD942869-1FB0-4CDB-818E-FB8B4EE6149F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD942869-1FB0-4CDB-818E-FB8B4EE6149F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{201D3C17-A8C7-42E5-A47B-CC56545AD167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{201D3C17-A8C7-42E5-A47B-CC56545AD167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{201D3C17-A8C7-42E5-A47B-CC56545AD167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{201D3C17-A8C7-42E5-A47B-CC56545AD167}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
