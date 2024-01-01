@@ -27,4 +27,8 @@
     <PackageReference Include="Fermata" Version="0.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="*.fsproj; *.fs; *.fsi; *.js" PackagePath="fable\" />
+  </ItemGroup>
+
 </Project>
