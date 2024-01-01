@@ -20,6 +20,7 @@
   <ItemGroup>
     <Compile Include="Fermata.RadixConversion.fsi" />
     <Compile Include="Fermata.RadixConversion.fs" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
