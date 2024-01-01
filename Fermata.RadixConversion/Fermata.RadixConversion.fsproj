@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Fermata.RadixConversion.fsi" />
     <Compile Include="Fermata.RadixConversion.fs" />
   </ItemGroup>
 
