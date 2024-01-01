@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Tests.fs" />
+    <Compile Include="Fermata.RadixConversion.Tests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
