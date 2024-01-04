@@ -126,5 +126,5 @@ module Arb =
                     |> Ok
                 with
                 | :? OverflowException ->
-                    Error(OverflowException "Value was either too large or too small for an Int32.")
+                    Error(OverflowException "Arithmetic operation resulted in an overflow.")
                 | _ as e -> Error(ArgumentException e.Message)
