@@ -1,4 +1,4 @@
-// Fermata.RadixConversion Version 0.1.0
+// Fermata.RadixConversion Version 1.0.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024 taidalog
 // This software is licensed under the MIT License.
@@ -41,14 +41,14 @@ module Dec =
     /// <code lang="fsharp">
     /// "FF" |> Dec.validate
     /// </code>
-    /// Evaluates to <c>Dec.Invalid(Exceptions.Format "Input string was not in a correct format.")</c>
+    /// Evaluates to <c>Dec.Invalid(FormatException "The input string 'FF' was not in a correct format.")</c>
     /// </example>
     ///
     /// <example id="Dec.validate-3">
     /// <code lang="fsharp">
     /// "2147483648" |> Dec.validate
     /// </code>
-    /// Evaluates to <c>Dec.Invalid(Exceptions.Overflow "Value was either too large or too small for an Int32.")</c>
+    /// Evaluates to <c>Dec.Invalid(OverflowException "Value was either too large or too small for an Int32.")</c>
     /// </example>
     val validate: input: string -> Dec
 
@@ -69,7 +69,7 @@ module Dec =
     /// <code lang="fsharp">
     /// "42." |> Dec.validate |> Dec.toBin
     /// </code>
-    /// Evaluates to <c>Bin.Invalid(Exceptions.Format "Input string was not in a correct format.")</c>
+    /// Evaluates to <c>Bin.Invalid(FormatException "The input string '42.' was not in a correct format.")</c>
     /// </example>
     val toBin: dec: Dec -> Bin
 
@@ -90,7 +90,7 @@ module Dec =
     /// <code lang="fsharp">
     /// "42." |> Dec.validate |> Dec.toHex
     /// </code>
-    /// Evaluates to <c>Hex.Invalid(Exceptions.Format "Input string was not in a correct format.")</c>
+    /// Evaluates to <c>Hex.Invalid(FormatException "The input string '42.' was not in a correct format.")</c>
     /// </example>
     val toHex: dec: Dec -> Hex
 
@@ -114,14 +114,14 @@ module Bin =
     /// <code lang="fsharp">
     /// "FF" |> Bin.validate
     /// </code>
-    /// Evaluates to <c>Bin.Invalid(Exceptions.Format "The input string 'FF' was not in a correct format.")</c>
+    /// Evaluates to <c>Bin.Invalid(FormatException "The input string 'FF' was not in a correct format.")</c>
     /// </example>
     ///
     /// <example id="Bin.validate-3">
     /// <code lang="fsharp">
     /// "100000000000000000000000000000000" |> Bin.validate
     /// </code>
-    /// Evaluates to <c>Bin.Invalid(Exceptions.Overflow "Value is too long. Value must be shorter or equal to 32")</c>
+    /// Evaluates to <c>Bin.Invalid(OverflowException "Value is too long. Value must be shorter or equal to 32")</c>
     /// </example>
     val validate: input: string -> Bin
 
@@ -142,7 +142,7 @@ module Bin =
     /// <code lang="fsharp">
     /// "XX" |> Bin.validate |> Bin.toDec
     /// </code>
-    /// Evaluates to <c>Dec.Invalid(Exceptions.Format "The input string 'XX' was not in a correct format.")</c>
+    /// Evaluates to <c>Dec.Invalid(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
     val toDec: bin: Bin -> Dec
 
@@ -166,14 +166,14 @@ module Hex =
     /// <code lang="fsharp">
     /// "XX" |> Hex.validate
     /// </code>
-    /// Evaluates to <c>Hex.Invalid(Exceptions.Format "The input string 'XX' was not in a correct format.")</c>
+    /// Evaluates to <c>Hex.Invalid(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
     ///
     /// <example id="Hex.validate-3">
     /// <code lang="fsharp">
     /// "FFFFFFFFF" |> Hex.validate
     /// </code>
-    /// Evaluates to <c>Hex.Invalid(Exceptions.Overflow "Value is too long. Value must be shorter or equal to 8")</c>
+    /// Evaluates to <c>Hex.Invalid(OverflowException "Value is too long. Value must be shorter or equal to 8")</c>
     val validate: input: string -> Hex
 
     /// <summary>Returns the equivalent <c>Dec</c> representation of the input <c>Hex</c> value if it is valid, otherwise <c>Dec.Invalid</c>.</summary>
@@ -193,7 +193,7 @@ module Hex =
     /// <code lang="fsharp">
     /// "XX" |> Hex.validate |> Hex.toDec
     /// </code>
-    /// Evaluates to <c>Dec.Invalid(Exceptions.Format "The input string 'XX' was not in a correct format.")</c>
+    /// Evaluates to <c>Dec.Invalid(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
     val toDec: hex: Hex -> Dec
 
@@ -235,21 +235,21 @@ module Arb =
     /// <code lang="fsharp">
     /// Arb.ofInt 1 "0" 42
     /// </code>
-    /// Evaluates to <c>Arb.Invalid(Exceptions.Argument "Radix must be greater than 1.")</c>
+    /// Evaluates to <c>Arb.Invalid(ArgumentException "Radix must be greater than 1.")</c>
     /// </example>
     ///
     /// <example id="Arb.ofInt-5">
     /// <code lang="fsharp">
     /// Arb.ofInt 16 "" 42
     /// </code>
-    /// Evaluates to <c>Arb.Invalid(Exceptions.Argument "Symbols were not specified.")</c>
+    /// Evaluates to <c>Arb.Invalid(ArgumentException "Symbols were not specified.")</c>
     /// </example>
     ///
     /// <example id="Arb.ofInt-6">
     /// <code lang="fsharp">
     /// Arb.ofInt 16 "01" 42
     /// </code>
-    /// Evaluates to <c>Arb.Invalid(Exceptions.Argument "The number of the symbols and the radix didn't match.")</c>
+    /// Evaluates to <c>Arb.Invalid(ArgumentException "The number of the symbols and the radix didn't match.")</c>
     /// </example>
     val ofInt: radix: int -> symbols: seq<char> -> number: int -> Arb
 
@@ -285,27 +285,27 @@ module Arb =
     /// <code lang="fsharp">
     /// Arb.toInt (Arb.Valid(1, "0", "0"))
     /// </code>
-    /// Evaluates to <c>Error(Exceptions.Argument "Radix must be greater than 1.")</c>
+    /// Evaluates to <c>Error(ArgumentException "Radix must be greater than 1.")</c>
     /// </example>
     ///
     /// <example id="Arb.toInt-5">
     /// <code lang="fsharp">
     /// Arb.toInt (Arb.Valid(16, "", "2a"))
     /// </code>
-    /// Evaluates to <c>Error(Exceptions.Argument "Symbols were not specified.")</c>
+    /// Evaluates to <c>Error(ArgumentException "Symbols were not specified.")</c>
     /// </example>
     ///
     /// <example id="Arb.toInt-6">
     /// <code lang="fsharp">
     /// Arb.toInt (Arb.Valid(16, "01", "2a"))
     /// </code>
-    /// Evaluates to <c>Error(Exceptions.Argument "The number of the symbols and the radix didn't match.")</c>
+    /// Evaluates to <c>Error(ArgumentException "The number of the symbols and the radix didn't match.")</c>
     /// </example>
     ///
     /// <example id="Arb.toInt-7">
     /// <code lang="fsharp">
     /// Arb.toInt (Arb.Valid(16, "0123456789abcdef", "7ffffffff")) // over `Int32.MaxValue`.
     /// </code>
-    /// Evaluates to <c>Error(Exceptions.Overflow "Arithmetic operation resulted in an overflow.")</c>
+    /// Evaluates to <c>Error(OverflowException "Arithmetic operation resulted in an overflow.")</c>
     /// </example>
     val toInt: arb: Arb -> Result<int, exn>

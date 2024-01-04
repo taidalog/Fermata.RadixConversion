@@ -1,10 +1,11 @@
-﻿// Fermata.RadixConversion Version 0.1.0
+﻿// Fermata.RadixConversion Version 1.0.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024 taidalog
 // This software is licensed under the MIT License.
 // https://github.com/taidalog/Fermata.RadixConversion/blob/main/LICENSE
 namespace Fermata.RadixConversion
 
+open System
 open Fermata
 open Fermata.Validators
 
@@ -91,11 +92,11 @@ module Arb =
 
     let ofInt (radix: int) (symbols: seq<char>) (number: int) : Arb =
         if radix < 2 then
-            Arb.Invalid(Exceptions.Argument "Radix must be greater than 1.")
+            Arb.Invalid(ArgumentException "Radix must be greater than 1.")
         else if Seq.isEmpty symbols then
-            Arb.Invalid(Exceptions.Argument "Symbols were not specified.")
+            Arb.Invalid(ArgumentException "Symbols were not specified.")
         else if Seq.length symbols <> radix then
-            Arb.Invalid(Exceptions.Argument "The number of the symbols and the radix didn't match.")
+            Arb.Invalid(ArgumentException "The number of the symbols and the radix didn't match.")
         else
             divideTill radix number radix []
             |> List.map (fun x -> Seq.item x symbols |> string)
@@ -107,11 +108,11 @@ module Arb =
         | Arb.Invalid e -> Error e
         | Arb.Valid(radix, symbols, value) ->
             if radix < 2 then
-                Error(Exceptions.Argument "Radix must be greater than 1.")
+                Error(ArgumentException "Radix must be greater than 1.")
             else if Seq.isEmpty symbols then
-                Error(Exceptions.Argument "Symbols were not specified.")
+                Error(ArgumentException "Symbols were not specified.")
             else if Seq.length symbols <> radix then
-                Error(Exceptions.Argument "The number of the symbols and the radix didn't match.")
+                Error(ArgumentException "The number of the symbols and the radix didn't match.")
             else
                 try
                     let weights = List.init (String.length value) ((pown) radix) |> List.rev
@@ -124,5 +125,5 @@ module Arb =
                     |> List.fold (+) 0
                     |> Ok
                 with
-                | :? System.OverflowException as e -> Error(Exceptions.Overflow e.Message)
-                | _ as e -> Error(Exceptions.Unknown e.Message)
+                | :? OverflowException -> Error(OverflowException "Arithmetic operation resulted in an overflow.")
+                | _ as e -> Error(ArgumentException e.Message)

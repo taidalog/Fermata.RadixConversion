@@ -2,7 +2,7 @@
 
 F# library for operations related to radix conversion. Compatible with Fable.
 
-Version 0.1.0
+Version 1.0.0
 
 ## Features
 
@@ -34,13 +34,13 @@ For more information, see the signature file (`.fsi`).
 .NET CLI,
 
 ```
-dotnet add package Fermata.RadixConversion --version 0.1.0
+dotnet add package Fermata.RadixConversion --version 1.0.0
 ```
 
 F# Intaractive,
 
 ```
-#r "nuget: Fermata.RadixConversion, 0.1.0"
+#r "nuget: Fermata.RadixConversion, 1.0.0"
 ```
 
 For more information, please see [Fermata on NuGet Gallery](https://www.nuget.org/packages/Fermata.RadixConversion).
@@ -59,7 +59,9 @@ For more information, please see [Fermata on NuGet Gallery](https://www.nuget.or
 
 ## Breaking Changes
 
--
+### 1.0.0
+
+- Functions in the module contains the built-in exceptions on failure, while they used to contain `Fermata.Exceptions`.
 
 ## Links
 
