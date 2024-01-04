@@ -59,7 +59,9 @@ For more information, please see [Fermata on NuGet Gallery](https://www.nuget.or
 
 ## Breaking Changes
 
--
+### 1.0.0
+
+- Functions in the module contains the built-in exceptions on failure, while they used to contain `Fermata.Exceptions`.
 
 ## Links
 
