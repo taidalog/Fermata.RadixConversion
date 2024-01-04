@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fermata" Version="0.7.0" />
+    <PackageReference Include="Fermata" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
