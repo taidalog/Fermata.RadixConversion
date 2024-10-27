@@ -6,6 +6,7 @@
 namespace Fermata.RadixConversion
 
 open System
+open System.Text.RegularExpressions
 open Fermata
 open Fermata.Validators
 
@@ -49,10 +50,18 @@ module Dec =
 [<RequireQualifiedAccess>]
 module Bin =
     let validate (input: string) : Bin =
+        let removeLeadingZeros (input: string) : Result<string, exn> =
+            try
+                let m = Regex.Match(input, "^0*([01]+)$")
+                Ok(m.Groups[1].Value)
+            with (e: exn) ->
+                Error e
+
         Ok input
         |> Result.bind validateNotEmptyString
         |> Result.bind (validateFormat "^[01]+$")
         |> Result.bind (validateMaxLength String.length 32)
+        |> Result.bind removeLeadingZeros
         |> function
             | Ok x -> Bin.Valid x
             | Error e -> Bin.Invalid e
@@ -66,10 +75,18 @@ module Bin =
 [<RequireQualifiedAccess>]
 module Hex =
     let validate (input: string) : Hex =
+        let removeLeadingZeros (input: string) : Result<string, exn> =
+            try
+                let m = Regex.Match(input, "^0*([0-9A-Fa-f]+)$")
+                Ok(m.Groups[1].Value)
+            with (e: exn) ->
+                Error e
+
         Ok input
         |> Result.bind validateNotEmptyString
         |> Result.bind (validateFormat "^[0-9A-Fa-f]+$")
         |> Result.bind (validateMaxLength String.length 8)
+        |> Result.bind removeLeadingZeros
         |> function
             | Ok x -> Hex.Valid x
             | Error e -> Hex.Invalid e

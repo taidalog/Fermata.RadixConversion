@@ -32,19 +32,47 @@ module Dec =
     ///
     /// <example id="Dec.validate-1">
     /// <code lang="fsharp">
+    /// "2" |> Dec.validate
+    /// </code>
+    /// Evaluates to <c>Dec.Valid 2</c>
+    /// </example>
+    ///
+    /// <example id="Dec.validate-2">
+    /// <code lang="fsharp">
+    /// "0" |> Dec.validate
+    /// </code>
+    /// Evaluates to <c>Dec.Valid 0</c>
+    /// </example>
+    ///
+    /// <example id="Dec.validate-3">
+    /// <code lang="fsharp">
+    /// "0000" |> Dec.validate
+    /// </code>
+    /// Evaluates to <c>Dec.Valid 0</c>
+    /// </example>
+    ///
+    /// <example id="Dec.validate-4">
+    /// <code lang="fsharp">
     /// "42" |> Dec.validate
     /// </code>
     /// Evaluates to <c>Dec.Valid 42</c>
     /// </example>
     ///
-    /// <example id="Dec.validate-2">
+    /// <example id="Dec.validate-5">
+    /// <code lang="fsharp">
+    /// "0042" |> Dec.validate
+    /// </code>
+    /// Evaluates to <c>Dec.Valid 42</c>
+    /// </example>
+    ///
+    /// <example id="Dec.validate-6">
     /// <code lang="fsharp">
     /// "FF" |> Dec.validate
     /// </code>
     /// Evaluates to <c>Dec.Invalid(FormatException "The input string 'FF' was not in a correct format.")</c>
     /// </example>
     ///
-    /// <example id="Dec.validate-3">
+    /// <example id="Dec.validate-7">
     /// <code lang="fsharp">
     /// "2147483648" |> Dec.validate
     /// </code>
@@ -105,19 +133,47 @@ module Bin =
     ///
     /// <example id="Bin.validate-1">
     /// <code lang="fsharp">
+    /// "1" |> Bin.validate
+    /// </code>
+    /// Evaluates to <c>Bin.Valid "1"</c>
+    /// </example>
+    ///
+    /// <example id="Bin.validate-2">
+    /// <code lang="fsharp">
+    /// "0" |> Bin.validate
+    /// </code>
+    /// Evaluates to <c>Bin.Valid "0"</c>
+    /// </example>
+    ///
+    /// <example id="Bin.validate-3">
+    /// <code lang="fsharp">
+    /// "0000" |> Bin.validate
+    /// </code>
+    /// Evaluates to <c>Bin.Valid "0"</c>
+    /// </example>
+    ///
+    /// <example id="Bin.validate-4">
+    /// <code lang="fsharp">
     /// "101010" |> Bin.validate
     /// </code>
     /// Evaluates to <c>Bin.Valid "101010"</c>
     /// </example>
     ///
-    /// <example id="Bin.validate-2">
+    /// <example id="Bin.validate-5">
+    /// <code lang="fsharp">
+    /// "0000101010" |> Bin.validate
+    /// </code>
+    /// Evaluates to <c>Bin.Valid "101010"</c>
+    /// </example>
+    ///
+    /// <example id="Bin.validate-6">
     /// <code lang="fsharp">
     /// "FF" |> Bin.validate
     /// </code>
     /// Evaluates to <c>Bin.Invalid(FormatException "The input string 'FF' was not in a correct format.")</c>
     /// </example>
     ///
-    /// <example id="Bin.validate-3">
+    /// <example id="Bin.validate-7">
     /// <code lang="fsharp">
     /// "100000000000000000000000000000000" |> Bin.validate
     /// </code>
@@ -157,19 +213,47 @@ module Hex =
     ///
     /// <example id="Hex.validate-1">
     /// <code lang="fsharp">
-    /// "FF" |> Hex.validate
+    /// "a" |> Hex.validate
+    /// </code>
+    /// Evaluates to <c>Hex.Valid "a"</c>
+    /// </example>
+    ///
+    /// <example id="Hex.validate-2">
+    /// <code lang="fsharp">
+    /// "0" |> Hex.validate
+    /// </code>
+    /// Evaluates to <c>Hex.Valid "0"</c>
+    /// </example>
+    ///
+    /// <example id="Hex.validate-3">
+    /// <code lang="fsharp">
+    /// "0000" |> Hex.validate
+    /// </code>
+    /// Evaluates to <c>Hex.Valid "0"</c>
+    /// </example>
+    ///
+    /// <example id="Hex.validate-4">
+    /// <code lang="fsharp">
+    /// Hex.validate "FF"
     /// </code>
     /// Evaluates to <c>Hex.Valid "FF"</c>
     /// </example>
     ///
-    /// <example id="Hex.validate-2">
+    /// <example id="Hex.validate-5">
+    /// <code lang="fsharp">
+    /// Hex.validate "00FF"
+    /// </code>
+    /// Evaluates to <c>Hex.Valid "FF"</c>
+    /// </example>
+    ///
+    /// <example id="Hex.validate-6">
     /// <code lang="fsharp">
     /// "XX" |> Hex.validate
     /// </code>
     /// Evaluates to <c>Hex.Invalid(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
     ///
-    /// <example id="Hex.validate-3">
+    /// <example id="Hex.validate-7">
     /// <code lang="fsharp">
     /// "FFFFFFFFF" |> Hex.validate
     /// </code>
