@@ -59,6 +59,10 @@ For more information, please see [Fermata on NuGet Gallery](https://www.nuget.or
 
 ## Breaking Changes
 
+### 1.1.0
+
+- `Bin.validate` and `Hex.validate` return the input binary number representation or hexadecimal representation **without** leading zeros, while they used to return the input value **with** leading zeros.
+
 ### 1.0.0
 
 - Functions in the module contains the built-in exceptions on failure, while they used to contain `Fermata.Exceptions`.
