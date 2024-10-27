@@ -1,4 +1,4 @@
-// Fermata.RadixConversion Version 1.0.0
+// Fermata.RadixConversion Version 1.1.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024 taidalog
 // This software is licensed under the MIT License.
@@ -7,7 +7,6 @@ module Fermata.RadixConversion.Tests
 
 open System
 open Xunit
-open Fermata
 open Fermata.RadixConversion
 
 let testDecToBeError (expected: Dec) (actual: Dec) : unit =
@@ -72,12 +71,36 @@ let testResultToBeError (expected: Result<'T, exn>) (actual: Result<'T, exn>) : 
 
 [<Fact>]
 let ``Dec.validate 1`` () =
+    let actual = "2" |> Dec.validate
+    let expected = Dec.Valid 2
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Dec.validate 2`` () =
+    let actual = "0" |> Dec.validate
+    let expected = Dec.Valid 0
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Dec.validate 3`` () =
+    let actual = "0000" |> Dec.validate
+    let expected = Dec.Valid 0
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Dec.validate 4`` () =
     let actual = "42" |> Dec.validate
     let expected = Dec.Valid 42
     Assert.Equal(expected, actual)
 
 [<Fact>]
-let ``Dec.validate 2`` () =
+let ``Dec.validate 5`` () =
+    let actual = "0042" |> Dec.validate
+    let expected = Dec.Valid 42
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Dec.validate 6`` () =
     let actual = "FF" |> Dec.validate
 
     let expected =
@@ -86,7 +109,7 @@ let ``Dec.validate 2`` () =
     testDecToBeError expected actual
 
 [<Fact>]
-let ``Dec.validate 3`` () =
+let ``Dec.validate 7`` () =
     let actual = "2147483648" |> Dec.validate
 
     let expected =
@@ -126,12 +149,36 @@ let ``Dec.toHex 2`` () =
 
 [<Fact>]
 let ``Bin.validate 1`` () =
+    let actual = "1" |> Bin.validate
+    let expected = Bin.Valid "1"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Bin.validate 2`` () =
+    let actual = "0" |> Bin.validate
+    let expected = Bin.Valid "0"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Bin.validate 3`` () =
+    let actual = "0000" |> Bin.validate
+    let expected = Bin.Valid "0"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Bin.validate 4`` () =
     let actual = "101010" |> Bin.validate
     let expected = Bin.Valid "101010"
     Assert.Equal(expected, actual)
 
 [<Fact>]
-let ``Bin.validate 2`` () =
+let ``Bin.validate 5`` () =
+    let actual = Bin.validate "0000101010"
+    let expected = Bin.Valid "101010"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Bin.validate 6`` () =
     let actual = "FF" |> Bin.validate
 
     let expected =
@@ -140,7 +187,7 @@ let ``Bin.validate 2`` () =
     testBinToBeError expected actual
 
 [<Fact>]
-let ``Bin.validate 3`` () =
+let ``Bin.validate 7`` () =
     let actual = "100000000000000000000000000000000" |> Bin.validate
 
     let expected =
@@ -165,12 +212,36 @@ let ``Bin.toDec 2`` () =
 
 [<Fact>]
 let ``Hex.validate 1`` () =
+    let actual = "a" |> Hex.validate
+    let expected = Hex.Valid "a"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Hex.validate 2`` () =
+    let actual = "0" |> Hex.validate
+    let expected = Hex.Valid "0"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Hex.validate 3`` () =
+    let actual = "0000" |> Hex.validate
+    let expected = Hex.Valid "0"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Hex.validate 4`` () =
     let actual = "FF" |> Hex.validate
     let expected = Hex.Valid "FF"
     Assert.Equal(expected, actual)
 
 [<Fact>]
-let ``Hex.validate 2`` () =
+let ``Hex.validate 5`` () =
+    let actual = Hex.validate "00FF"
+    let expected = Hex.Valid "FF"
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``Hex.validate 6`` () =
     let actual = "XX" |> Hex.validate
 
     let expected =
@@ -179,7 +250,7 @@ let ``Hex.validate 2`` () =
     testHexToBeError expected actual
 
 [<Fact>]
-let ``Hex.validate 3`` () =
+let ``Hex.validate 7`` () =
     let actual = "FFFFFFFFF" |> Hex.validate
 
     let expected =
