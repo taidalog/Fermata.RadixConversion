@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Fermata.RadixConversion</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Authors>taidalog</Authors>
     <Company />
     <Description>F# library for operations related to radix conversion. Compatible with Fable.</Description>
@@ -12,7 +12,7 @@
     <PackageTags>F#; FSharp; fable; radix; conversion; helper; library; functional; programming</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Copyright>Copyright (c) 2024 taidalog</Copyright>
+    <Copyright>Copyright (c) 2024-2025 taidalog</Copyright>
     <RepositoryUrl>https://github.com/taidalog/Fermata.RadixConversion.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
