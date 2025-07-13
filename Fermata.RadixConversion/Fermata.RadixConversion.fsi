@@ -1,4 +1,4 @@
-// Fermata.RadixConversion Version 1.1.0
+// Fermata.RadixConversion Version 1.2.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024 taidalog
 // This software is licensed under the MIT License.
@@ -236,14 +236,14 @@ module Hex =
     /// <code lang="fsharp">
     /// Hex.validate "FF"
     /// </code>
-    /// Evaluates to <c>Hex.Valid "FF"</c>
+    /// Evaluates to <c>Hex.Valid "ff"</c>
     /// </example>
     ///
     /// <example id="Hex.validate-5">
     /// <code lang="fsharp">
     /// Hex.validate "00FF"
     /// </code>
-    /// Evaluates to <c>Hex.Valid "FF"</c>
+    /// Evaluates to <c>Hex.Valid "ff"</c>
     /// </example>
     ///
     /// <example id="Hex.validate-6">
@@ -268,12 +268,19 @@ module Hex =
     ///
     /// <example id="Hex.toDec-1">
     /// <code lang="fsharp">
+    /// "A1" |> Hex.validate |> Hex.toDec
+    /// </code>
+    /// Evaluates to <c>Dec.Valid 161</c>
+    /// </example>
+    ///
+    /// <example id="Hex.toDec-2">
+    /// <code lang="fsharp">
     /// "ff" |> Hex.validate |> Hex.toDec
     /// </code>
     /// Evaluates to <c>Dec.Valid 255</c>
     /// </example>
     ///
-    /// <example id="Hex.toDec-2">
+    /// <example id="Hex.toDec-3">
     /// <code lang="fsharp">
     /// "XX" |> Hex.validate |> Hex.toDec
     /// </code>

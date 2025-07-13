@@ -1,4 +1,4 @@
-// Fermata.RadixConversion Version 1.1.0
+// Fermata.RadixConversion Version 1.2.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024 taidalog
 // This software is licensed under the MIT License.
@@ -231,13 +231,13 @@ let ``Hex.validate 3`` () =
 [<Fact>]
 let ``Hex.validate 4`` () =
     let actual = "FF" |> Hex.validate
-    let expected = Hex.Valid "FF"
+    let expected = Hex.Valid "ff"
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 5`` () =
     let actual = Hex.validate "00FF"
-    let expected = Hex.Valid "FF"
+    let expected = Hex.Valid "ff"
     Assert.Equal(expected, actual)
 
 [<Fact>]
@@ -260,12 +260,17 @@ let ``Hex.validate 7`` () =
 
 [<Fact>]
 let ``Hex.toDec 1`` () =
+    let actual = "A1" |> Hex.validate |> Hex.toDec
+    let expected = Dec.Valid 161
+    Assert.Equal(expected, actual)
+[<Fact>]
+let ``Hex.toDec 2`` () =
     let actual = "ff" |> Hex.validate |> Hex.toDec
     let expected = Dec.Valid 255
     Assert.Equal(expected, actual)
 
 [<Fact>]
-let ``Hex.toDec 2`` () =
+let ``Hex.toDec 3`` () =
     let actual = "XX" |> Hex.validate |> Hex.toDec
 
     let expected =

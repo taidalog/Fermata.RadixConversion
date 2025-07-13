@@ -1,4 +1,4 @@
-﻿// Fermata.RadixConversion Version 1.1.0
+﻿// Fermata.RadixConversion Version 1.2.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024 taidalog
 // This software is licensed under the MIT License.
@@ -44,7 +44,7 @@ module Dec =
     let toHex (dec: Dec) : Hex =
         dec
         |> function
-            | Dec.Valid x -> System.Convert.ToString(x, 16) |> Hex.Valid
+            | Dec.Valid x -> System.Convert.ToString(x, 16) |> fun (x: string) -> x.ToLower() |> Hex.Valid
             | Dec.Invalid e -> Hex.Invalid e
 
 [<RequireQualifiedAccess>]
@@ -87,6 +87,7 @@ module Hex =
         |> Result.bind (validateFormat "^[0-9A-Fa-f]+$")
         |> Result.bind (validateMaxLength String.length 8)
         |> Result.bind removeLeadingZeros
+        |> Result.map (fun (x: string) -> x.ToLower())
         |> function
             | Ok x -> Hex.Valid x
             | Error e -> Hex.Invalid e
