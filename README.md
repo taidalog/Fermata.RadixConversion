@@ -12,9 +12,9 @@ Version 1.2.0
 ## Target Frameworks
 
 - .NET Standard 2.0
-- .NET 6
 - .NET 7
 - .NET 8
+- .NET 9
 
 ## Modules
 
@@ -40,7 +40,7 @@ dotnet add package Fermata.RadixConversion --Version 1.2.0
 F# Intaractive,
 
 ```
-#r "nuget: Fermata.RadixConversion, 1.1.0"
+#r "nuget: Fermata.RadixConversion, 1.2.0"
 ```
 
 For more information, please see [Fermata on NuGet Gallery](https://www.nuget.org/packages/Fermata.RadixConversion).
@@ -58,6 +58,11 @@ For more information, please see [Fermata on NuGet Gallery](https://www.nuget.or
 [Releases on GitHub](https://github.com/taidalog/Fermata.RadixConversion/releases)
 
 ## Breaking Changes
+
+### 1.2.0
+
+- `Hex.validate` returns the input hexadecimal representation in **lower case**, while it used to return the input value in **upper case or in lower case** according to the input.
+- .NET 6.0 is no longer supported.
 
 ### 1.1.0
 
