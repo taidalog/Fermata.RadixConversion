@@ -11,16 +11,13 @@ open Fermata
 open Fermata.Validators
 
 type Dec =
-    | Valid of int
-    | Invalid of exn
+    | Dec of int
 
 type Bin =
-    | Valid of string
-    | Invalid of exn
+    | Bin of string
 
 type Hex =
-    | Valid of string
-    | Invalid of exn
+    | Hex of string
 
 type Arb =
     | Valid of radix: int * symbols: seq<char> * value: string
@@ -28,28 +25,20 @@ type Arb =
 
 [<RequireQualifiedAccess>]
 module Dec =
-    let validate (input: string) : Dec =
+    let validate (input: string) : Result<Dec, exn> =
         input
         |> Int32.validate
-        |> function
-            | Ok x -> Dec.Valid x
-            | Error e -> Dec.Invalid e
+        |> Result.map Dec
 
-    let toBin (dec: Dec) : Bin =
-        dec
-        |> function
-            | Dec.Valid x -> System.Convert.ToString(x, 2) |> Bin.Valid
-            | Dec.Invalid e -> Bin.Invalid e
+    let toBin (Dec v) : Bin =
+        System.Convert.ToString(v, 2) |> Bin
 
-    let toHex (dec: Dec) : Hex =
-        dec
-        |> function
-            | Dec.Valid x -> System.Convert.ToString(x, 16) |> fun (x: string) -> x.ToLower() |> Hex.Valid
-            | Dec.Invalid e -> Hex.Invalid e
+    let toHex (Dec v) : Hex =
+        System.Convert.ToString(v, 16) |> fun (x: string) -> x.ToLower() |> Hex
 
 [<RequireQualifiedAccess>]
 module Bin =
-    let validate (input: string) : Bin =
+    let validate (input: string) : Result<Bin, exn> =
         let removeLeadingZeros (input: string) : Result<string, exn> =
             try
                 let m = Regex.Match(input, "^0*([01]+)$")
@@ -62,19 +51,14 @@ module Bin =
         |> Result.bind (validateFormat "^[01]+$")
         |> Result.bind (validateMaxLength String.length 32)
         |> Result.bind removeLeadingZeros
-        |> function
-            | Ok x -> Bin.Valid x
-            | Error e -> Bin.Invalid e
+        |> Result.map Bin
 
-    let toDec (bin: Bin) : Dec =
-        bin
-        |> function
-            | Bin.Valid x -> System.Convert.ToInt32(x, 2) |> Dec.Valid
-            | Bin.Invalid e -> Dec.Invalid e
+    let toDec (Bin v) : Dec =
+        System.Convert.ToInt32(v, 2) |> Dec
 
 [<RequireQualifiedAccess>]
 module Hex =
-    let validate (input: string) : Hex =
+    let validate (input: string) : Result<Hex, exn> =
         let removeLeadingZeros (input: string) : Result<string, exn> =
             try
                 let m = Regex.Match(input, "^0*([0-9A-Fa-f]+)$")
@@ -88,15 +72,10 @@ module Hex =
         |> Result.bind (validateMaxLength String.length 8)
         |> Result.bind removeLeadingZeros
         |> Result.map (fun (x: string) -> x.ToLower())
-        |> function
-            | Ok x -> Hex.Valid x
-            | Error e -> Hex.Invalid e
+        |> Result.map Hex
 
-    let toDec (hex: Hex) : Dec =
-        hex
-        |> function
-            | Hex.Valid x -> System.Convert.ToInt32(x, 16) |> Dec.Valid
-            | Hex.Invalid e -> Dec.Invalid e
+    let toDec (Hex v) : Dec =
+        System.Convert.ToInt32(v, 16) |> Dec
 
 [<RequireQualifiedAccess>]
 module Arb =

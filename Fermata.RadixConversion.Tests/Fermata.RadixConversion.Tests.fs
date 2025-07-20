@@ -9,37 +9,37 @@ open System
 open Xunit
 open Fermata.RadixConversion
 
-let testDecToBeError (expected: Dec) (actual: Dec) : unit =
+let testDecToBeError (expected: Result<Dec, exn>) (actual: Result<Dec, exn>) : unit =
     match expected with
-    | Dec.Valid _ -> Assert.Fail "'expected' was a Dec.Valid."
-    | Dec.Invalid e1 ->
+    | Ok _ -> Assert.Fail "'expected' was a valid Dec."
+    | Error e1 ->
         match actual with
-        | Dec.Valid _ -> Assert.Fail "'actual' was a Dec.Valid."
-        | Dec.Invalid e2 ->
+        | Ok _ -> Assert.Fail "'actual' was a valid Dec."
+        | Error e2 ->
             if e2.GetType().Name = e1.GetType().Name then
                 Assert.Equal(e1.Message, e2.Message)
             else
                 Assert.Fail "Error types didn't match."
 
-let testBinToBeError (expected: Bin) (actual: Bin) : unit =
+let testBinToBeError (expected: Result<Bin, exn>) (actual: Result<Bin, exn>) : unit =
     match expected with
-    | Bin.Valid _ -> Assert.Fail "'expected' was a Bin.Valid."
-    | Bin.Invalid e1 ->
+    | Ok _ -> Assert.Fail "'expected' was a valid Bin."
+    | Error e1 ->
         match actual with
-        | Bin.Valid _ -> Assert.Fail "'actual' was a Bin.Valid."
-        | Bin.Invalid e2 ->
+        | Ok _ -> Assert.Fail "'actual' was a valid Bin."
+        | Error e2 ->
             if e2.GetType().Name = e1.GetType().Name then
                 Assert.Equal(e1.Message, e2.Message)
             else
                 Assert.Fail "Error types didn't match."
 
-let testHexToBeError (expected: Hex) (actual: Hex) : unit =
+let testHexToBeError (expected: Result<Hex, exn>) (actual: Result<Hex, exn>) : unit =
     match expected with
-    | Hex.Valid _ -> Assert.Fail "'expected' was a Hex.Valid."
-    | Hex.Invalid e1 ->
+    | Ok _ -> Assert.Fail "'expected' was a valid Hex."
+    | Error e1 ->
         match actual with
-        | Hex.Valid _ -> Assert.Fail "'actual' was a Hex.Valid."
-        | Hex.Invalid e2 ->
+        | Ok _ -> Assert.Fail "'actual' was a valid Hex."
+        | Error e2 ->
             if e2.GetType().Name = e1.GetType().Name then
                 Assert.Equal(e1.Message, e2.Message)
             else
@@ -72,39 +72,39 @@ let testResultToBeError (expected: Result<'T, exn>) (actual: Result<'T, exn>) : 
 [<Fact>]
 let ``Dec.validate 1`` () =
     let actual = "2" |> Dec.validate
-    let expected = Dec.Valid 2
+    let expected = Ok(Dec 2)
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.validate 2`` () =
     let actual = "0" |> Dec.validate
-    let expected = Dec.Valid 0
+    let expected = Ok(Dec 0)
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.validate 3`` () =
     let actual = "0000" |> Dec.validate
-    let expected = Dec.Valid 0
+    let expected = Ok(Dec 0)
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.validate 4`` () =
     let actual = "42" |> Dec.validate
-    let expected = Dec.Valid 42
+    let expected = Ok(Dec 42)
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.validate 5`` () =
     let actual = "0042" |> Dec.validate
-    let expected = Dec.Valid 42
+    let expected = Ok(Dec 42)
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.validate 6`` () =
     let actual = "FF" |> Dec.validate
 
-    let expected =
-        Dec.Invalid(FormatException "The input string 'FF' was not in a correct format.")
+    let expected: Result<Dec,exn> =
+        Error(FormatException "The input string 'FF' was not in a correct format.")
 
     testDecToBeError expected actual
 
@@ -112,77 +112,77 @@ let ``Dec.validate 6`` () =
 let ``Dec.validate 7`` () =
     let actual = "2147483648" |> Dec.validate
 
-    let expected =
-        Dec.Invalid(OverflowException "Value was either too large or too small for an Int32.")
+    let expected: Result<Dec,exn> =
+        Error(OverflowException "Value was either too large or too small for an Int32.")
 
     testDecToBeError expected actual
 
 [<Fact>]
 let ``Dec.toBin 1`` () =
-    let actual = "42" |> Dec.validate |> Dec.toBin
-    let expected = Bin.Valid "101010"
+    let actual = Dec 42 |> Dec.toBin
+    let expected = Bin "101010"
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.toBin 2`` () =
-    let actual = "42." |> Dec.validate |> Dec.toBin
+    let actual = "42." |> Dec.validate |> Result.map Dec.toBin
 
-    let expected =
-        Bin.Invalid(FormatException "The input string '42.' was not in a correct format.")
+    let expected: Result<Bin,exn> =
+        Error(FormatException "The input string '42.' was not in a correct format.")
 
     testBinToBeError expected actual
 
 [<Fact>]
 let ``Dec.toHex 1`` () =
-    let actual = "42" |> Dec.validate |> Dec.toHex
-    let expected = Hex.Valid "2a"
+    let actual = Dec 42 |> Dec.toHex
+    let expected = Hex "2a"
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Dec.toHex 2`` () =
-    let actual = "42." |> Dec.validate |> Dec.toHex
+    let actual = "42." |> Dec.validate |> Result.map Dec.toHex
 
-    let expected =
-        Hex.Invalid(FormatException "The input string '42.' was not in a correct format.")
+    let expected: Result<Hex,exn> =
+        Error(FormatException "The input string '42.' was not in a correct format.")
 
     testHexToBeError expected actual
 
 [<Fact>]
 let ``Bin.validate 1`` () =
     let actual = "1" |> Bin.validate
-    let expected = Bin.Valid "1"
+    let expected = Ok(Bin "1")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Bin.validate 2`` () =
     let actual = "0" |> Bin.validate
-    let expected = Bin.Valid "0"
+    let expected = Ok (Bin "0")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Bin.validate 3`` () =
     let actual = "0000" |> Bin.validate
-    let expected = Bin.Valid "0"
+    let expected = Ok(Bin "0")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Bin.validate 4`` () =
     let actual = "101010" |> Bin.validate
-    let expected = Bin.Valid "101010"
+    let expected = Ok(Bin "101010")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Bin.validate 5`` () =
     let actual = Bin.validate "0000101010"
-    let expected = Bin.Valid "101010"
+    let expected = Ok(Bin "101010")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Bin.validate 6`` () =
     let actual = "FF" |> Bin.validate
 
-    let expected =
-        Bin.Invalid(FormatException "The input string 'FF' was not in a correct format.")
+    let expected: Result<Bin,exn> =
+        Error(FormatException "The input string 'FF' was not in a correct format.")
 
     testBinToBeError expected actual
 
@@ -190,62 +190,62 @@ let ``Bin.validate 6`` () =
 let ``Bin.validate 7`` () =
     let actual = "100000000000000000000000000000000" |> Bin.validate
 
-    let expected =
-        Bin.Invalid(OverflowException "Value is too long. Value must be shorter or equal to 32")
+    let expected: Result<Bin,exn> =
+        Error(OverflowException "Value is too long. Value must be shorter or equal to 32")
 
     testBinToBeError expected actual
 
 [<Fact>]
 let ``Bin.toDec 1`` () =
-    let actual = "101010" |> Bin.validate |> Bin.toDec
-    let expected = Dec.Valid 42
+    let actual = Bin "101010" |> Bin.toDec
+    let expected = Dec 42
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Bin.toDec 2`` () =
-    let actual = "XX" |> Bin.validate |> Bin.toDec
+    let actual = "XX" |> Bin.validate |> Result.map Bin.toDec
 
-    let expected =
-        Dec.Invalid(FormatException "The input string 'XX' was not in a correct format.")
+    let expected: Result<Dec,exn> =
+        Error(FormatException "The input string 'XX' was not in a correct format.")
 
     testDecToBeError expected actual
 
 [<Fact>]
 let ``Hex.validate 1`` () =
     let actual = "a" |> Hex.validate
-    let expected = Hex.Valid "a"
+    let expected = Ok(Hex "a")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 2`` () =
     let actual = "0" |> Hex.validate
-    let expected = Hex.Valid "0"
+    let expected = Ok(Hex "0")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 3`` () =
     let actual = "0000" |> Hex.validate
-    let expected = Hex.Valid "0"
+    let expected = Ok(Hex "0")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 4`` () =
     let actual = "FF" |> Hex.validate
-    let expected = Hex.Valid "ff"
+    let expected = Ok(Hex "ff")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 5`` () =
     let actual = Hex.validate "00FF"
-    let expected = Hex.Valid "ff"
+    let expected = Ok(Hex "ff")
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 6`` () =
     let actual = "XX" |> Hex.validate
 
-    let expected =
-        Hex.Invalid(FormatException "The input string 'XX' was not in a correct format.")
+    let expected: Result<Hex,exn> =
+        Error(FormatException "The input string 'XX' was not in a correct format.")
 
     testHexToBeError expected actual
 
@@ -253,28 +253,28 @@ let ``Hex.validate 6`` () =
 let ``Hex.validate 7`` () =
     let actual = "FFFFFFFFF" |> Hex.validate
 
-    let expected =
-        Hex.Invalid(OverflowException "Value is too long. Value must be shorter or equal to 8")
+    let expected: Result<Hex,exn> =
+        Error(OverflowException "Value is too long. Value must be shorter or equal to 8")
 
     testHexToBeError expected actual
 
 [<Fact>]
 let ``Hex.toDec 1`` () =
-    let actual = "A1" |> Hex.validate |> Hex.toDec
-    let expected = Dec.Valid 161
+    let actual = Hex "A1" |> Hex.toDec
+    let expected = Dec 161
     Assert.Equal(expected, actual)
 [<Fact>]
 let ``Hex.toDec 2`` () =
-    let actual = "ff" |> Hex.validate |> Hex.toDec
-    let expected = Dec.Valid 255
+    let actual = Hex "ff" |> Hex.toDec
+    let expected = Dec 255
     Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.toDec 3`` () =
-    let actual = "XX" |> Hex.validate |> Hex.toDec
+    let actual = "XX" |> Hex.validate |> Result.map Hex.toDec
 
-    let expected =
-        Dec.Invalid(FormatException "The input string 'XX' was not in a correct format.")
+    let expected: Result<Dec,exn> =
+        Error(FormatException "The input string 'XX' was not in a correct format.")
 
     testDecToBeError expected actual
 
