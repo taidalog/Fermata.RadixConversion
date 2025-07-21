@@ -21,6 +21,12 @@ type Arb =
     | Valid of radix: int * symbols: seq<char> * value: string
     | Invalid of exn
 
+[<AutoOpen>]
+module Core =
+    val inline dec: x: ^T -> Dec when ^T: (static member op_Explicit: ^T -> int)
+    val inline bin: x: ^T -> Bin when ^T: (static member op_Explicit: ^T -> int)
+    val inline hex: x: ^T -> Hex when ^T: (static member op_Explicit: ^T -> int)
+
 [<RequireQualifiedAccess>]
 module Dec =
 

@@ -26,6 +26,12 @@ type Arb =
     | Valid of radix: int * symbols: seq<char> * value: string
     | Invalid of exn
 
+[<AutoOpen>]
+module Core =
+    let inline dec (x: ^T) : Dec = int x |> Dec
+    let inline bin (x: ^T) : Bin = System.Convert.ToString(int x, 2) |> Bin
+    let inline hex (x: ^T) : Hex = System.Convert.ToString(int x, 16) |> Hex
+
 [<RequireQualifiedAccess>]
 module Dec =
     let validate (input: string) : Result<Dec, exn> =

@@ -42,6 +42,42 @@ let ``int Dec`` (x: int) (y: int) :unit=
     let expected = y
     Assert.Equal(expected, actual)
 
+[<Theory>]
+[<InlineData(0, 0)>]
+[<InlineData(1, 1)>]
+[<InlineData(42, 42)>]
+let ``dec 1`` (x: int) (y: int) :unit=
+    let actual = dec x
+    let expected = Dec y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData("0", 0)>]
+[<InlineData("1", 1)>]
+[<InlineData("101010", 42)>]
+let ``dec 2`` (x: string) (y: int) :unit=
+    let actual = dec (Bin x)
+    let expected = Dec y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData("0", 0)>]
+[<InlineData("1", 1)>]
+[<InlineData("2a", 42)>]
+let ``dec 3`` (x: string) (y: int) :unit=
+    let actual = dec (Hex x)
+    let expected = Dec y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData(0, 0)>]
+[<InlineData(1, 1)>]
+[<InlineData(42, 42)>]
+let ``dec 4`` (x: int) (y: int) :unit=
+    let actual = dec (Dec x)
+    let expected = Dec y
+    Assert.Equal(expected, actual)
+
 [<Fact>]
 let ``Dec.validate 1`` () =
     let actual = "2" |> Dec.validate
@@ -131,6 +167,42 @@ let ``int Bin`` (x: string) (y: int):unit =
     let expected = y
     Assert.Equal(expected, actual)
 
+[<Theory>]
+[<InlineData(0, "0")>]
+[<InlineData(1, "1")>]
+[<InlineData(42, "101010")>]
+let ``bin 1`` (x: int) (y: string) :unit=
+    let actual = bin x
+    let expected = Bin y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData(0, "0")>]
+[<InlineData(1, "1")>]
+[<InlineData(42, "101010")>]
+let ``bin 2`` (x: int) (y: string) :unit=
+    let actual = bin (Dec x)
+    let expected = Bin y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData("0", "0")>]
+[<InlineData("1", "1")>]
+[<InlineData("2a", "101010")>]
+let ``bin 3`` (x: string) (y: string) :unit=
+    let actual = bin (Hex x)
+    let expected = Bin y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData("00000000", "0")>]
+[<InlineData("00000001", "1")>]
+[<InlineData("00101010", "101010")>]
+let ``bin 4`` (x: string) (y: string) :unit=
+    let actual = bin (Bin x)
+    let expected = Bin y
+    Assert.Equal(expected, actual)
+
 [<Fact>]
 let ``Bin.validate 1`` () =
     let actual = "1" |> Bin.validate
@@ -204,6 +276,42 @@ let ``Bin.toDec 2`` () =
 let ``int Hex`` (x: string) (y: int):unit =
     let actual = int (Hex x)
     let expected = y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData(0, "0")>]
+[<InlineData(1, "1")>]
+[<InlineData(42, "2a")>]
+let ``hex 1`` (x: int) (y: string) :unit=
+    let actual = hex x
+    let expected = Hex y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData(0, "0")>]
+[<InlineData(1, "1")>]
+[<InlineData(42, "2a")>]
+let ``hex 2`` (x: int) (y: string) :unit=
+    let actual = hex (Dec x)
+    let expected = Hex y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData("0", "0")>]
+[<InlineData("1", "1")>]
+[<InlineData("101010", "2a")>]
+let ``hex 3`` (x: string) (y: string) :unit=
+    let actual = hex (Bin x)
+    let expected = Hex y
+    Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData("00000000", "0")>]
+[<InlineData("00000001", "1")>]
+[<InlineData("0000002a", "2a")>]
+let ``hex 4`` (x: string) (y: string) :unit=
+    let actual = hex (Hex x)
+    let expected = Hex y
     Assert.Equal(expected, actual)
 
 [<Fact>]
