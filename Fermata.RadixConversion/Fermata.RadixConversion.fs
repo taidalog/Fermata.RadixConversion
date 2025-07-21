@@ -12,12 +12,15 @@ open Fermata.Validators
 
 type Dec =
     | Dec of int
+    static member op_Explicit(Dec v) : int = v
 
 type Bin =
     | Bin of string
+    static member op_Explicit(Bin v) : int = System.Convert.ToInt32(v, 2)
 
 type Hex =
     | Hex of string
+    static member op_Explicit(Hex v) : int = System.Convert.ToInt32(v, 16)
 
 type Arb =
     | Valid of radix: int * symbols: seq<char> * value: string

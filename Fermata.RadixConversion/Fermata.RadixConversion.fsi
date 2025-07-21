@@ -7,12 +7,15 @@ namespace Fermata.RadixConversion
 
 type Dec =
     | Dec of int
+    static member op_Explicit: Dec -> int
 
 type Bin =
     | Bin of string
+    static member op_Explicit: Bin -> int
 
 type Hex =
     | Hex of string
+    static member op_Explicit: Hex -> int
 
 type Arb =
     | Valid of radix: int * symbols: seq<char> * value: string

@@ -33,6 +33,15 @@ let testArbToBeError (expected: Arb) (actual: Arb) : unit =
             else
                 Assert.Fail "Error types didn't match."
 
+[<Theory>]
+[<InlineData(0, 0)>]
+[<InlineData(1, 1)>]
+[<InlineData(42, 42)>]
+let ``int Dec`` (x: int) (y: int) :unit=
+    let actual = int (Dec x)
+    let expected = y
+    Assert.Equal(expected, actual)
+
 [<Fact>]
 let ``Dec.validate 1`` () =
     let actual = "2" |> Dec.validate
@@ -111,6 +120,17 @@ let ``Dec.toHex 2`` () =
 
     testResultToBeError expected actual
 
+[<Theory>]
+[<InlineData("0", 0)>]
+[<InlineData("1", 1)>]
+[<InlineData("00", 0)>]
+[<InlineData("01", 1)>]
+[<InlineData("101010", 42)>]
+let ``int Bin`` (x: string) (y: int):unit =
+    let actual = int (Bin x)
+    let expected = y
+    Assert.Equal(expected, actual)
+
 [<Fact>]
 let ``Bin.validate 1`` () =
     let actual = "1" |> Bin.validate
@@ -173,6 +193,18 @@ let ``Bin.toDec 2`` () =
         Error(FormatException "The input string 'XX' was not in a correct format.")
 
     testResultToBeError expected actual
+
+[<Theory>]
+[<InlineData("0", 0)>]
+[<InlineData("1", 1)>]
+[<InlineData("00", 0)>]
+[<InlineData("01", 1)>]
+[<InlineData("2a", 42)>]
+[<InlineData("02a", 42)>]
+let ``int Hex`` (x: string) (y: int):unit =
+    let actual = int (Hex x)
+    let expected = y
+    Assert.Equal(expected, actual)
 
 [<Fact>]
 let ``Hex.validate 1`` () =
