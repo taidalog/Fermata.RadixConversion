@@ -79,7 +79,7 @@ module Dec =
 
     /// <summary>Returns the equivalent <c>Bin</c> representation of the input <c>Dec</c> value.</summary>
     ///
-    /// <param name="">The input <c>Dec</c>.</param>
+    /// <param name="dec">The input <c>Dec</c>.</param>
     ///
     /// <returns>The equivalent <c>Bin</c> representation of the input <c>Dec</c> value.</returns>
     ///
@@ -100,7 +100,7 @@ module Dec =
 
     /// <summary>Returns the equivalent <c>Hex</c> representation of the input <c>Dec</c> value.</summary>
     ///
-    /// <param name="">The input <c>Dec</c>.</param>
+    /// <param name="dec">The input <c>Dec</c>.</param>
     ///
     /// <returns>The equivalent <c>Hex</c> representation of the input <c>Dec</c> value.</returns>
     ///
@@ -180,7 +180,7 @@ module Bin =
 
     /// <summary>Returns the equivalent <c>Dec</c> representation of the input <c>Bin</c> value.</summary>
     ///
-    /// <param name="">The input <c>Bin</c>.</param>
+    /// <param name="bin">The input <c>Bin</c>.</param>
     ///
     /// <returns>The equivalent <c>Dec</c> representation of the input <c>Bin</c> value.</returns>
     ///
@@ -260,7 +260,7 @@ module Hex =
 
     /// <summary>Returns the equivalent <c>Dec</c> representation of the input <c>Hex</c> value.</summary>
     ///
-    /// <param name="">The input <c>Hex</c>.</param>
+    /// <param name="hex">The input <c>Hex</c>.</param>
     ///
     /// <returns>The equivalent <c>Dec</c> representation of the input <c>Hex</c> value.</returns>
     ///

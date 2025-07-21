@@ -30,10 +30,12 @@ module Dec =
         |> Int32.validate
         |> Result.map Dec
 
-    let toBin (Dec v) : Bin =
+    let toBin (dec: Dec) : Bin =
+        let (Dec v) = dec
         System.Convert.ToString(v, 2) |> Bin
 
-    let toHex (Dec v) : Hex =
+    let toHex (dec: Dec) : Hex =
+        let (Dec v) = dec
         System.Convert.ToString(v, 16) |> fun (x: string) -> x.ToLower() |> Hex
 
 [<RequireQualifiedAccess>]
@@ -53,7 +55,8 @@ module Bin =
         |> Result.bind removeLeadingZeros
         |> Result.map Bin
 
-    let toDec (Bin v) : Dec =
+    let toDec (bin: Bin) : Dec =
+        let (Bin v) = bin
         System.Convert.ToInt32(v, 2) |> Dec
 
 [<RequireQualifiedAccess>]
@@ -74,7 +77,8 @@ module Hex =
         |> Result.map (fun (x: string) -> x.ToLower())
         |> Result.map Hex
 
-    let toDec (Hex v) : Dec =
+    let toDec (hex :Hex) : Dec =
+        let (Hex v) = hex
         System.Convert.ToInt32(v, 16) |> Dec
 
 [<RequireQualifiedAccess>]
