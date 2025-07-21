@@ -1,4 +1,4 @@
-// Fermata.RadixConversion Version 1.2.1
+// Fermata.RadixConversion Version 2.0.0
 // https://github.com/taidalog/Fermata.RadixConversion
 // Copyright (c) 2024-2025 taidalog
 // This software is licensed under the MIT License.
