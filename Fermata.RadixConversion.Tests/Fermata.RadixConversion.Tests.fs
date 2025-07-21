@@ -9,54 +9,6 @@ open System
 open Xunit
 open Fermata.RadixConversion
 
-let testDecToBeError (expected: Result<Dec, exn>) (actual: Result<Dec, exn>) : unit =
-    match expected with
-    | Ok _ -> Assert.Fail "'expected' was a valid Dec."
-    | Error e1 ->
-        match actual with
-        | Ok _ -> Assert.Fail "'actual' was a valid Dec."
-        | Error e2 ->
-            if e2.GetType().Name = e1.GetType().Name then
-                Assert.Equal(e1.Message, e2.Message)
-            else
-                Assert.Fail "Error types didn't match."
-
-let testBinToBeError (expected: Result<Bin, exn>) (actual: Result<Bin, exn>) : unit =
-    match expected with
-    | Ok _ -> Assert.Fail "'expected' was a valid Bin."
-    | Error e1 ->
-        match actual with
-        | Ok _ -> Assert.Fail "'actual' was a valid Bin."
-        | Error e2 ->
-            if e2.GetType().Name = e1.GetType().Name then
-                Assert.Equal(e1.Message, e2.Message)
-            else
-                Assert.Fail "Error types didn't match."
-
-let testHexToBeError (expected: Result<Hex, exn>) (actual: Result<Hex, exn>) : unit =
-    match expected with
-    | Ok _ -> Assert.Fail "'expected' was a valid Hex."
-    | Error e1 ->
-        match actual with
-        | Ok _ -> Assert.Fail "'actual' was a valid Hex."
-        | Error e2 ->
-            if e2.GetType().Name = e1.GetType().Name then
-                Assert.Equal(e1.Message, e2.Message)
-            else
-                Assert.Fail "Error types didn't match."
-
-let testArbToBeError (expected: Arb) (actual: Arb) : unit =
-    match expected with
-    | Arb.Valid _ -> Assert.Fail "'expected' was a Arb.Valid."
-    | Arb.Invalid e1 ->
-        match actual with
-        | Arb.Valid _ -> Assert.Fail "'actual' was a Arb.Valid."
-        | Arb.Invalid e2 ->
-            if e2.GetType().Name = e1.GetType().Name then
-                Assert.Equal(e1.Message, e2.Message)
-            else
-                Assert.Fail "Error types didn't match."
-
 let testResultToBeError (expected: Result<'T, exn>) (actual: Result<'T, exn>) : unit =
     match expected with
     | Ok _ -> Assert.Fail "'expected' was an Ok value."
@@ -68,6 +20,17 @@ let testResultToBeError (expected: Result<'T, exn>) (actual: Result<'T, exn>) : 
                 Assert.Equal(e1.Message, e2.Message)
             else
                 Assert.Fail "Error messages didn't match."
+let testArbToBeError (expected: Arb) (actual: Arb) : unit =
+    match expected with
+    | Arb.Valid _ -> Assert.Fail "'expected' was a Arb.Valid."
+    | Arb.Invalid e1 ->
+        match actual with
+        | Arb.Valid _ -> Assert.Fail "'actual' was a Arb.Valid."
+        | Arb.Invalid e2 ->
+            if e2.GetType().Name = e1.GetType().Name then
+                Assert.Equal(e1.Message, e2.Message)
+            else
+                Assert.Fail "Error types didn't match."
 
 [<Fact>]
 let ``Dec.validate 1`` () =
@@ -106,7 +69,7 @@ let ``Dec.validate 6`` () =
     let expected: Result<Dec,exn> =
         Error(FormatException "The input string 'FF' was not in a correct format.")
 
-    testDecToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Dec.validate 7`` () =
@@ -115,7 +78,7 @@ let ``Dec.validate 7`` () =
     let expected: Result<Dec,exn> =
         Error(OverflowException "Value was either too large or too small for an Int32.")
 
-    testDecToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Dec.toBin 1`` () =
@@ -130,7 +93,7 @@ let ``Dec.toBin 2`` () =
     let expected: Result<Bin,exn> =
         Error(FormatException "The input string '42.' was not in a correct format.")
 
-    testBinToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Dec.toHex 1`` () =
@@ -145,7 +108,7 @@ let ``Dec.toHex 2`` () =
     let expected: Result<Hex,exn> =
         Error(FormatException "The input string '42.' was not in a correct format.")
 
-    testHexToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Bin.validate 1`` () =
@@ -184,7 +147,7 @@ let ``Bin.validate 6`` () =
     let expected: Result<Bin,exn> =
         Error(FormatException "The input string 'FF' was not in a correct format.")
 
-    testBinToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Bin.validate 7`` () =
@@ -193,7 +156,7 @@ let ``Bin.validate 7`` () =
     let expected: Result<Bin,exn> =
         Error(OverflowException "Value is too long. Value must be shorter or equal to 32")
 
-    testBinToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Bin.toDec 1`` () =
@@ -208,7 +171,7 @@ let ``Bin.toDec 2`` () =
     let expected: Result<Dec,exn> =
         Error(FormatException "The input string 'XX' was not in a correct format.")
 
-    testDecToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Hex.validate 1`` () =
@@ -247,7 +210,7 @@ let ``Hex.validate 6`` () =
     let expected: Result<Hex,exn> =
         Error(FormatException "The input string 'XX' was not in a correct format.")
 
-    testHexToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Hex.validate 7`` () =
@@ -256,7 +219,7 @@ let ``Hex.validate 7`` () =
     let expected: Result<Hex,exn> =
         Error(OverflowException "Value is too long. Value must be shorter or equal to 8")
 
-    testHexToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Hex.toDec 1`` () =
@@ -276,7 +239,7 @@ let ``Hex.toDec 3`` () =
     let expected: Result<Dec,exn> =
         Error(FormatException "The input string 'XX' was not in a correct format.")
 
-    testDecToBeError expected actual
+    testResultToBeError expected actual
 
 [<Fact>]
 let ``Arb.ofInt 1`` () =
