@@ -20,6 +20,7 @@ let testResultToBeError (expected: Result<'T, exn>) (actual: Result<'T, exn>) : 
                 Assert.Equal(e1.Message, e2.Message)
             else
                 Assert.Fail "Error messages didn't match."
+
 let testArbToBeError (expected: Arb) (actual: Arb) : unit =
     match expected with
     | Arb.Valid _ -> Assert.Fail "'expected' was a Arb.Valid."
