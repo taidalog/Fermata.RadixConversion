@@ -30,7 +30,7 @@ module Core =
     ///
     /// <typeparam name="'T">Requires static member <c>op_Explicit</c></typeparam>
     ///
-    /// <returns><c>Dec v</c>.</returns>
+    /// <returns>The converted <c>Dec</c>.</returns>
     ///
     /// <example id="dec-1">
     /// <code lang="fsharp">
@@ -59,6 +59,13 @@ module Core =
     /// </code>
     /// Evaluates to <c>Dec 42</c>
     /// </example>
+    ///
+    /// <example id="dec-5">
+    /// <code lang="fsharp">
+    /// dec 'A'
+    /// </code>
+    /// Evaluates to <c>Dec 65</c>
+    /// </example>
     val inline dec: x: ^T -> Dec when ^T: (static member op_Explicit: ^T -> int)
 
     /// <summary>Returns the equivalent <c>Bin</c> representation of the input value.</summary>
@@ -67,7 +74,7 @@ module Core =
     ///
     /// <typeparam name="'T">Requires static member <c>op_Explicit</c></typeparam>
     ///
-    /// <returns><c>Bin v</c>.</returns>
+    /// <returns>The converted <c>Bin</c>.</returns>
     ///
     /// <example id="bin-1">
     /// <code lang="fsharp">
@@ -96,6 +103,13 @@ module Core =
     /// </code>
     /// Evaluates to <c>Bin "101010"</c>
     /// </example>
+    ///
+    /// <example id="bin-5">
+    /// <code lang="fsharp">
+    /// bin 'A'
+    /// </code>
+    /// Evaluates to <c>Bin "1000001"</c>
+    /// </example>
     val inline bin: x: ^T -> Bin when ^T: (static member op_Explicit: ^T -> int)
 
     /// <summary>Returns the equivalent <c>Hex</c> representation of the input value.</summary>
@@ -104,7 +118,7 @@ module Core =
     ///
     /// <typeparam name="'T">Requires static member <c>op_Explicit</c></typeparam>
     ///
-    /// <returns><c>Hex v</c>.</returns>
+    /// <returns>The converted <c>Hex</c>.</returns>
     ///
     /// <example id="hex-1">
     /// <code lang="fsharp">
@@ -132,6 +146,13 @@ module Core =
     /// hex (Hex "002a")
     /// </code>
     /// Evaluates to <c>Hex "2a"</c>
+    /// </example>
+    ///
+    /// <example id="hex-5">
+    /// <code lang="fsharp">
+    /// hex 'A'
+    /// </code>
+    /// Evaluates to <c>Hex "41"</c>
     /// </example>
     val inline hex: x: ^T -> Hex when ^T: (static member op_Explicit: ^T -> int)
 

@@ -78,6 +78,19 @@ let ``dec 4`` (x: int) (y: int) :unit=
     let expected = Dec y
     Assert.Equal(expected, actual)
 
+[<Theory>]
+[<InlineData('0', 48)>]
+[<InlineData('A', 65)>]
+[<InlineData('あ', 12354)>]
+let ``dec 5`` (x: char) (y: int) :unit=
+    let actual = dec (int x)
+    let expected = Dec y
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``dec-error`` () =
+    Assert.Throws<System.FormatException> (Action(fun _ -> dec "a" |> ignore))
+
 [<Fact>]
 let ``Dec.validate 1`` () =
     let actual = "2" |> Dec.validate
@@ -203,6 +216,19 @@ let ``bin 4`` (x: string) (y: string) :unit=
     let expected = Bin y
     Assert.Equal(expected, actual)
 
+[<Theory>]
+[<InlineData('0', "110000")>]
+[<InlineData('A', "1000001")>]
+[<InlineData('あ', "11000001000010")>]
+let ``bin 5`` (x: char) (y: string) :unit=
+    let actual = bin (int x)
+    let expected = Bin y
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``bin-error`` () =
+    Assert.Throws<System.FormatException> (Action(fun _ -> bin "a" |> ignore))
+
 [<Fact>]
 let ``Bin.validate 1`` () =
     let actual = "1" |> Bin.validate
@@ -313,6 +339,19 @@ let ``hex 4`` (x: string) (y: string) :unit=
     let actual = hex (Hex x)
     let expected = Hex y
     Assert.Equal(expected, actual)
+
+[<Theory>]
+[<InlineData('0', "30")>]
+[<InlineData('A', "41")>]
+[<InlineData('あ', "3042")>]
+let ``hex 5`` (x: char) (y: string) :unit=
+    let actual = hex (int x)
+    let expected = Hex y
+    Assert.Equal(expected, actual)
+
+[<Fact>]
+let ``hex-error`` () =
+    Assert.Throws<System.FormatException> (Action(fun _ -> hex "a" |> ignore))
 
 [<Fact>]
 let ``Hex.validate 1`` () =
