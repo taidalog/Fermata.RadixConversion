@@ -234,7 +234,7 @@ module Dec =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string '42.' was not in a correct format.")</c>
     /// </example>
-    val toBin: Dec -> Bin
+    val toBin: dec: Dec -> Bin
 
     /// <summary>Returns the equivalent <c>Hex</c> representation of the input <c>Dec</c> value.</summary>
     ///
@@ -255,7 +255,7 @@ module Dec =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string '42.' was not in a correct format.")</c>
     /// </example>
-    val toHex: Dec -> Hex
+    val toHex: dec: Dec -> Hex
 
 [<RequireQualifiedAccess>]
 module Bin =
@@ -335,7 +335,7 @@ module Bin =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
-    val toDec: Bin -> Dec
+    val toDec: bin: Bin -> Dec
 
 [<RequireQualifiedAccess>]
 module Hex =
@@ -422,7 +422,7 @@ module Hex =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
-    val toDec: Hex -> Dec
+    val toDec: hex: Hex -> Dec
 
 [<RequireQualifiedAccess>]
 module Arb =
