@@ -2,7 +2,7 @@
 
 F# library for operations related to radix conversion. Compatible with Fable.
 
-Version 1.2.1
+Version 2.0.0
 
 ## Features
 
@@ -18,6 +18,8 @@ Version 1.2.1
 
 ## Modules
 
+- Core
+   Contains helper functions for base 10, 2 and 16 radix conversion (.NET wrapper functions).
 - Dec  
    Contains helper functions for base 10 radix conversion (.NET wrapper functions).
 - Bin  
@@ -34,13 +36,13 @@ For more information, see the signature file (`.fsi`).
 .NET CLI,
 
 ```
-dotnet add package Fermata.RadixConversion --Version 1.2.1
+dotnet add package Fermata.RadixConversion --Version 2.0.0
 ```
 
 F# Intaractive,
 
 ```
-#r "nuget: Fermata.RadixConversion, 1.2.1"
+#r "nuget: Fermata.RadixConversion, 2.0.0"
 ```
 
 For more information, please see [Fermata on NuGet Gallery](https://www.nuget.org/packages/Fermata.RadixConversion).
@@ -58,6 +60,11 @@ For more information, please see [Fermata on NuGet Gallery](https://www.nuget.or
 [Releases on GitHub](https://github.com/taidalog/Fermata.RadixConversion/releases)
 
 ## Breaking Changes
+
+### 2.0.0
+
+- `Dec`, `Bin` and `Hex` discriminated unions are now inplemented as single case discriminated unions, while they used to be multi case DU, holding two cases `Valid` and `Invalid`.
+- New helper functions `dec`, `bin` and `hex` are added. These functions takes a value (able to convert to `int`) and convert it to `Dec`, `Bin` and `Hex`. A conversion `Dec.Valid 42 |> Dec.toBin` now can be written `Dec 42 |> bin` (the older functions are still left). This change doesn't replace anything, nothing is abolished. But in some cases, this change might cause some trouble if your code includes values named "dec", "bin" and "hex" because those values will overwrite the newly added functions.
 
 ### 1.2.0
 
