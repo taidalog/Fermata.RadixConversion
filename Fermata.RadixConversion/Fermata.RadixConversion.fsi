@@ -23,8 +23,116 @@ type Arb =
 
 [<AutoOpen>]
 module Core =
+
+    /// <summary>Returns the equivalent <c>Dec</c> representation of the input value.</summary>
+    ///
+    /// <param name="x">The input value.</param>
+    ///
+    /// <typeparam name="'T">Requires static member <c>op_Explicit</c></typeparam>
+    ///
+    /// <returns><c>Dec v</c>.</returns>
+    ///
+    /// <example id="dec-1">
+    /// <code lang="fsharp">
+    /// dec 42
+    /// </code>
+    /// Evaluates to <c>Dec 42</c>
+    /// </example>
+    ///
+    /// <example id="dec-2">
+    /// <code lang="fsharp">
+    /// dec (Bin "101010")
+    /// </code>
+    /// Evaluates to <c>Dec 42</c>
+    /// </example>
+    ///
+    /// <example id="dec-3">
+    /// <code lang="fsharp">
+    /// dec (Hex "2a")
+    /// </code>
+    /// Evaluates to <c>Dec 42</c>
+    /// </example>
+    ///
+    /// <example id="dec-4">
+    /// <code lang="fsharp">
+    /// dec (Dec 42)
+    /// </code>
+    /// Evaluates to <c>Dec 42</c>
+    /// </example>
     val inline dec: x: ^T -> Dec when ^T: (static member op_Explicit: ^T -> int)
+
+    /// <summary>Returns the equivalent <c>Bin</c> representation of the input value.</summary>
+    ///
+    /// <param name="x">The input value.</param>
+    ///
+    /// <typeparam name="'T">Requires static member <c>op_Explicit</c></typeparam>
+    ///
+    /// <returns><c>Bin v</c>.</returns>
+    ///
+    /// <example id="bin-1">
+    /// <code lang="fsharp">
+    /// bin 42
+    /// </code>
+    /// Evaluates to <c>Bin "101010"</c>
+    /// </example>
+    ///
+    /// <example id="bin-2">
+    /// <code lang="fsharp">
+    /// bin (Dec 42)
+    /// </code>
+    /// Evaluates to <c>Bin "101010"</c>
+    /// </example>
+    ///
+    /// <example id="bin-3">
+    /// <code lang="fsharp">
+    /// bin (Hex "2a")
+    /// </code>
+    /// Evaluates to <c>Bin "101010"</c>
+    /// </example>
+    ///
+    /// <example id="bin-4">
+    /// <code lang="fsharp">
+    /// bin (Bin "00101010")
+    /// </code>
+    /// Evaluates to <c>Bin "101010"</c>
+    /// </example>
     val inline bin: x: ^T -> Bin when ^T: (static member op_Explicit: ^T -> int)
+
+    /// <summary>Returns the equivalent <c>Hex</c> representation of the input value.</summary>
+    ///
+    /// <param name="x">The input value.</param>
+    ///
+    /// <typeparam name="'T">Requires static member <c>op_Explicit</c></typeparam>
+    ///
+    /// <returns><c>Hex v</c>.</returns>
+    ///
+    /// <example id="hex-1">
+    /// <code lang="fsharp">
+    /// hex 42
+    /// </code>
+    /// Evaluates to <c>Hex "2a"</c>
+    /// </example>
+    ///
+    /// <example id="hex-2">
+    /// <code lang="fsharp">
+    /// hex (Dec 42)
+    /// </code>
+    /// Evaluates to <c>Hex "2a"</c>
+    /// </example>
+    ///
+    /// <example id="hex-3">
+    /// <code lang="fsharp">
+    /// hex (Bin "101010")
+    /// </code>
+    /// Evaluates to <c>Hex "2a"</c>
+    /// </example>
+    ///
+    /// <example id="hex-4">
+    /// <code lang="fsharp">
+    /// hex (Hex "002a")
+    /// </code>
+    /// Evaluates to <c>Hex "2a"</c>
+    /// </example>
     val inline hex: x: ^T -> Hex when ^T: (static member op_Explicit: ^T -> int)
 
 [<RequireQualifiedAccess>]
