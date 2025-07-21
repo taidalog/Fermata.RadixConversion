@@ -79,7 +79,7 @@ module Dec =
 
     /// <summary>Returns the equivalent <c>Bin</c> representation of the input <c>Dec</c> value.</summary>
     ///
-    /// <param name="dec">The input <c>Dec</c>.</param>
+    /// <param name="">The input <c>Dec</c>.</param>
     ///
     /// <returns>The equivalent <c>Bin</c> representation of the input <c>Dec</c> value.</returns>
     ///
@@ -96,11 +96,11 @@ module Dec =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string '42.' was not in a correct format.")</c>
     /// </example>
-    val toBin: dec: Dec -> Bin
+    val toBin: Dec -> Bin
 
     /// <summary>Returns the equivalent <c>Hex</c> representation of the input <c>Dec</c> value.</summary>
     ///
-    /// <param name="dec">The input <c>Dec</c>.</param>
+    /// <param name="">The input <c>Dec</c>.</param>
     ///
     /// <returns>The equivalent <c>Hex</c> representation of the input <c>Dec</c> value.</returns>
     ///
@@ -117,7 +117,7 @@ module Dec =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string '42.' was not in a correct format.")</c>
     /// </example>
-    val toHex: dec: Dec -> Hex
+    val toHex: Dec -> Hex
 
 [<RequireQualifiedAccess>]
 module Bin =
@@ -180,7 +180,7 @@ module Bin =
 
     /// <summary>Returns the equivalent <c>Dec</c> representation of the input <c>Bin</c> value.</summary>
     ///
-    /// <param name="bin">The input <c>Bin</c>.</param>
+    /// <param name="">The input <c>Bin</c>.</param>
     ///
     /// <returns>The equivalent <c>Dec</c> representation of the input <c>Bin</c> value.</returns>
     ///
@@ -197,7 +197,7 @@ module Bin =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
-    val toDec: bin: Bin -> Dec
+    val toDec: Bin -> Dec
 
 [<RequireQualifiedAccess>]
 module Hex =
@@ -260,7 +260,7 @@ module Hex =
 
     /// <summary>Returns the equivalent <c>Dec</c> representation of the input <c>Hex</c> value.</summary>
     ///
-    /// <param name="hex">The input <c>Hex</c>.</param>
+    /// <param name="">The input <c>Hex</c>.</param>
     ///
     /// <returns>The equivalent <c>Dec</c> representation of the input <c>Hex</c> value.</returns>
     ///
@@ -284,7 +284,7 @@ module Hex =
     /// </code>
     /// Evaluates to <c>Error(FormatException "The input string 'XX' was not in a correct format.")</c>
     /// </example>
-    val toDec: hex: Hex -> Dec
+    val toDec: Hex -> Dec
 
 [<RequireQualifiedAccess>]
 module Arb =
